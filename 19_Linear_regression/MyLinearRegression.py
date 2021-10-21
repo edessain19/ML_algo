@@ -6,7 +6,7 @@ class MyLinearRegression():
 	Description:
 	My personnal linear regression class to fit like a boss.
 	"""
-	def __init__(self, theta, alpha=0.000001, max_iter=10000, lambda_=0.5):
+	def __init__(self, theta, alpha=0.00001, max_iter=10000, lambda_=0.5):
 		self.alpha = alpha #learning rate
 		self.max_iter = max_iter #number of iteration
 		self.theta = theta
@@ -99,12 +99,9 @@ class MyLinearRegression():
 		y = np.squeeze(y)
 		i = 0
 		while i < self.max_iter:
-			# theta_bis= np.copy(self.theta)
-			# theta_bis[0] = 0
-			# gradient = (1 / m) * ((np.dot(np.transpose(X), (np.dot(X, self.theta) - y))) + (self.lambda_ * theta_bis))
-			# self.theta = self.theta - self.alpha * gradient
-			# i += 1
-			gradient = (1 / m) * (np.dot(np.transpose(X), self.predict_(x) - y))
+			theta_bis= np.copy(self.theta)
+			theta_bis[0] = 0
+			gradient = (1 / m) * ((np.dot(np.transpose(X), (np.dot(X, self.theta) - y))) + (self.lambda_ * theta_bis))
 			self.theta = self.theta - self.alpha * gradient
 			i += 1
 		return self.theta
@@ -143,3 +140,5 @@ class MyLinearRegression():
 		theta_p2 = self.theta * self.theta
 		theta_p2[0] = 0
 		return (sum((y_hat - y) ** 2) + (self.lambda_ * sum(theta_p2))) / (2 * m)
+
+
